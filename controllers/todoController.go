@@ -50,7 +50,7 @@ func AddTodo(context *gin.Context) {
     }
 
     utils.DB.Create(&newTodo)
-    context.IndentedJSON(http.StatusCreated, newTodo)
+    context.IndentedJSON(http.StatusCreated, gin.H{"message": "added successfully"})
 }
 
 func ToggleTodoStatus(context *gin.Context) {
@@ -65,7 +65,7 @@ func ToggleTodoStatus(context *gin.Context) {
     todo.IsComplete = !todo.IsComplete
     utils.DB.Save(&todo)
 
-    context.IndentedJSON(http.StatusOK, todo)
+    context.IndentedJSON(http.StatusOK, gin.H{"message": "status updated"})
 }
 
 func DeleteTodo(context *gin.Context) {

@@ -12,5 +12,5 @@ func main(){
 
 	router:= gin.Default();
 	routes.SetupRoutes(router);
-	router.Run("localhost:9090");
+	router.Run("localhost:8080");
 }

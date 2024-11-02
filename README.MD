@@ -67,17 +67,14 @@
 }
 ```
 
-### update list
+### Toggle Todo Status
 
 - **Method**: PATCH
 - **Endpoint**: `/todos/{id}`
 - **Request**:
 
 ```json
-{
-    "item" : string,
-    "isComplete" boolean,
-}
+{}
 ```
 
 - **Response**

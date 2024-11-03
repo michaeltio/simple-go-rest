@@ -1,17 +1,24 @@
 package utils
 
 import (
-	"log"
-	"simple-go-rest/models"
+    "log"
+    "os"
+    "simple-go-rest/models"
 
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+    "gorm.io/driver/postgres"
+    "gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
 func Connect() {
-    dsn := "host=localhost user=postgres password=root dbname=simple-go-rest port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+    dbHost := os.Getenv("DB_HOST")
+    dbPort := os.Getenv("DB_PORT")
+    dbUser := os.Getenv("DB_USER")
+    dbPassword := os.Getenv("DB_PASSWORD")
+    dbName := os.Getenv("DB_NAME")
+
+    dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPassword + " dbname=" + dbName + " port=" + dbPort + " sslmode=disable TimeZone=Asia/Shanghai"
     var err error
     DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
     if err != nil {

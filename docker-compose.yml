@@ -13,11 +13,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DB_HOST=postgres_db
+      - DB_HOST=simple-go-rest-postgres_db-1
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=root
-      - DB_NAME=simple-go-rest
+      - DB_NAME=simple-go-rest  
     depends_on:
       - postgres_db
    

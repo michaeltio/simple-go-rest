@@ -7,17 +7,28 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=simple-go-rest
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
   server:
     build: .
     ports:
       - "8080:8080"
     environment:
-      - DB_HOST=simple-go-rest-postgres_db-1
+      - DB_HOST=postgres_db
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=root
       - DB_NAME=simple-go-rest  
     depends_on:
       - postgres_db
-   
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db-data:

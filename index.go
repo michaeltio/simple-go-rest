@@ -7,10 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main(){
-	utils.Connect();
+func main() {
+    utils.Connect();
 
-	router:= gin.Default();
-	routes.SetupRoutes(router);
-	router.Run("0.0.0.0:8080");
+    router := gin.Default();
+
+    //routes
+    routes.SetupIndexRoutes(router);
+    routes.SetupTodoRoutes(router);
+
+    router.Run("0.0.0.0:8080");
 }

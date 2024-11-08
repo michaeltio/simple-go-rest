@@ -10,12 +10,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//get all todo list
 func GetTodos(context *gin.Context) {
     var todos []models.Todo
     utils.DB.Find(&todos)
     context.IndentedJSON(http.StatusOK, todos)
 }
 
+// get todo by id finder
 func getTodoByID(id string) (*models.Todo, error) {
     var todo models.Todo
     idInt, err := strconv.Atoi(id)
@@ -30,6 +32,7 @@ func getTodoByID(id string) (*models.Todo, error) {
     return &todo, nil
 }
 
+//get todo by id
 func GetTodo(context *gin.Context) {
     id := context.Param("id")
     todo, err := getTodoByID(id)
@@ -42,6 +45,7 @@ func GetTodo(context *gin.Context) {
     context.IndentedJSON(http.StatusOK, todo)
 }
 
+//add new todo list
 func AddTodo(context *gin.Context) {
     var newTodo models.Todo
 
@@ -53,6 +57,7 @@ func AddTodo(context *gin.Context) {
     context.IndentedJSON(http.StatusCreated, gin.H{"message": "added successfully"})
 }
 
+//toggle todo status
 func ToggleTodoStatus(context *gin.Context) {
     id := context.Param("id")
     todo, err := getTodoByID(id)
@@ -68,6 +73,7 @@ func ToggleTodoStatus(context *gin.Context) {
     context.IndentedJSON(http.StatusOK, gin.H{"message": "status updated"})
 }
 
+//delete todo
 func DeleteTodo(context *gin.Context) {
     id := context.Param("id")
     todo, err := getTodoByID(id)

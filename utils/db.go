@@ -1,11 +1,12 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"simple-go-rest/models"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,19 +14,25 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-    errenv := godotenv.Load()
-
-    if( errenv != nil){
-        log.Fatal("Error loading .env file")
-    }
+    fmt.Printf("Connecting to database\n");
     
-    dbHost := os.Getenv("DB_HOST")
-    dbPort := os.Getenv("DB_PORT")
-    dbUser := os.Getenv("DB_USER")
-    dbPassword := os.Getenv("DB_PASSWORD")
-    dbName := os.Getenv("DB_NAME")
+    // fmt.Printf("Load Env File\n");
+    // errenv := godotenv.Load()
 
-    dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPassword + " dbname=" + dbName + " port=" + dbPort + " sslmode=disable TimeZone=Asia/Shanghai"
+    // if( errenv != nil){
+    //     log.Fatal("Error loading .env file")
+    // }
+    
+
+    dbHost := os.Getenv("DB_HOST")
+    dbUser := os.Getenv("POSTGRES_USER")
+    dbPassword := os.Getenv("POSTGRES_PASSWORD")
+    dbName := os.Getenv("POSTGRES_DB")
+    dbPort := os.Getenv("DB_PORT")
+
+    fmt.Printf("Connecting to Database");
+    dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", dbHost, dbUser, dbPassword, dbName, dbPort)
+    fmt.Printf("DSN: %s\n", dsn);
     var err error
     DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
     if err != nil {

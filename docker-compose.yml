@@ -27,6 +27,13 @@ services:
     networks:
       - go-network
 
+  client:
+    build: ../my-first-remix-app
+    ports:
+      - "80:3000"
+    networks:
+      - go-network
+    
 networks:
   go-network:
 
